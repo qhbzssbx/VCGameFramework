@@ -1,0 +1,24 @@
+# Unity YAML merge
+*.unity merge=unityyamlmerge eol=lf
+*.prefab merge=unityyamlmerge eol=lf
+*.asset merge=unityyamlmerge eol=lf
+*.mat merge=unityyamlmerge eol=lf
+*.controller merge=unityyamlmerge eol=lf
+*.anim merge=unityyamlmerge eol=lf
+*.overrideController merge=unityyamlmerge eol=lf
+
+# Text always treated as text
+*.cs text
+*.shader text
+*.cginc text
+*.compute text
+
+# Binary files treated as binary
+*.png binary
+*.jpg binary
+*.ogg binary
+*.fbx binary
+*.mp4 binary
+*.wav binary
+*.ttf binary
+*.otf binary
