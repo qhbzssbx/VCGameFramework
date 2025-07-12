@@ -1,9 +1,10 @@
+using Game.Modules.Log.Application;
+using Game.Modules.Log.Domain;
+using Game.Modules.Log.Infrastructure;
 using VContainer;
 using VContainer.Unity;
-using Game.Modules.Log.Domain;
-using Game.Modules.Log.Application;
 
-namespace Game.Modules.Log.Infrastructure
+namespace GameScripts.Modules.Log
 {
     public class LogInstaller : IInstaller
     {
