@@ -3,6 +3,7 @@ using MessagePipe;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using Cysharp.Threading.Tasks;
 
 public class LaunchScript : IStartable
 {
@@ -28,13 +29,14 @@ public class LaunchScript : IStartable
     {
         if (eventId == 1002)
         {
-            SwitchScene();
+            SwitchScene().Forget();
         }
     }
 
-    private void SwitchScene()
+    private async UniTaskVoid SwitchScene()
     {
         Debug.Log("LaunchAnimEnd -> SwitchScene");
-        sceneManager.LoadSceneAsync("HotUpdate").Forget();
+        await sceneManager.LoadSceneAsync("HotUpdate");
+        await sceneManager.ActivateLoadedScene();
     }
 }
