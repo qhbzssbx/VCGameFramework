@@ -23,7 +23,7 @@ namespace GameScripts.Modules.Scene.Runtime
         /// </summary>
         /// <param name="sceneName">场景名称</param>
         /// <param name="onComplete">完成后回调</param>
-        public async UniTaskVoid LoadSceneAsync(string sceneName, Action onComplete = null)
+        public async UniTask LoadSceneAsync(string sceneName, Action onComplete = null)
         {
             Debug.Log($"开始加载场景: {sceneName}");
 
@@ -33,13 +33,15 @@ namespace GameScripts.Modules.Scene.Runtime
             // 先加载但不激活，由外部在合适时机调用 ActivateLoadedScene
             preloadOperation.allowSceneActivation = false;
 
-            while (!preloadOperation.isDone)
+            // allowSceneActivation 为 false 时，isDone 始终为 false
+            // 因此只需等待到进度达到 0.9（加载完成但未激活）即可
+            while (preloadOperation.progress < 0.9f)
             {
                 Debug.Log($"加载进度: {preloadOperation.progress * 100f:0.0}%");
                 await UniTask.Yield(); // 每帧等待
             }
 
-            Debug.Log("场景加载完成");
+            Debug.Log("场景加载完成，等待激活");
 
             onComplete?.Invoke();
         }
