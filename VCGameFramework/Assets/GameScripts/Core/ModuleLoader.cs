@@ -2,17 +2,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VContainer;
+using VContainer.Unity;
 
 namespace Game.Core
 {
     public static class ModuleLoader
     {
+        static readonly List<IAsyncModule> asyncModules = new();
+
         public static void RegisterAllModules(IContainerBuilder builder)
         {
+            asyncModules.Clear();
             var modules = DiscoverModules();
             foreach (var module in modules)
             {
                 module.Configure(builder);
+                if (module is IAsyncModule asyncModule)
+                    asyncModules.Add(asyncModule);
+            }
+
+            if (asyncModules.Count > 0)
+            {
+                builder.RegisterInstance<IReadOnlyList<IAsyncModule>>(asyncModules);
+                builder.RegisterEntryPoint<ModuleInitializer>(Lifetime.Singleton);
             }
         }
 
