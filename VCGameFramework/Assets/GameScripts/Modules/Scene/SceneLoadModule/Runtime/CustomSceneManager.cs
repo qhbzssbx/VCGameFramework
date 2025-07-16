@@ -30,7 +30,8 @@ namespace GameScripts.Modules.Scene.Runtime
             preloadSceneName = sceneName;
 
             preloadOperation = SceneManager.LoadSceneAsync(sceneName);
-            preloadOperation.allowSceneActivation = true;
+            // 先加载但不激活，由外部在合适时机调用 ActivateLoadedScene
+            preloadOperation.allowSceneActivation = false;
 
             while (!preloadOperation.isDone)
             {
