@@ -4,10 +4,14 @@ using Game.Modules.Global.Domain;
 
 namespace Game.Modules.Global.Infrastructure
 {
+    /// <summary>
+    /// 全局事件总线的实现
+    /// </summary>
     public class GlobalEventBus : IGlobalEventBus
     {
         private readonly Dictionary<Type, Delegate> _listeners = new();
 
+        /// <inheritdoc />
         public void Publish<T>(T message)
         {
             if (_listeners.TryGetValue(typeof(T), out var d))
@@ -17,6 +21,7 @@ namespace Game.Modules.Global.Infrastructure
             }
         }
 
+        /// <inheritdoc />
         public void Subscribe<T>(Action<T> handler)
         {
             if (_listeners.TryGetValue(typeof(T), out var d))
@@ -29,6 +34,7 @@ namespace Game.Modules.Global.Infrastructure
             }
         }
 
+        /// <inheritdoc />
         public void Unsubscribe<T>(Action<T> handler)
         {
             if (_listeners.TryGetValue(typeof(T), out var d))

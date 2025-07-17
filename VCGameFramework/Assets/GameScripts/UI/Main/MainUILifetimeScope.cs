@@ -3,8 +3,14 @@ using VContainer.Unity;
 
 namespace Game.UI.Main
 {
+    /// <summary>
+    /// 主界面 UI 的作用域配置
+    /// </summary>
     public class MainUILifetimeScope : LifetimeScope
     {
+        /// <summary>
+        /// 注册 UI 组件和其对应的 Presenter
+        /// </summary>
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponentInHierarchy<HUDView>();

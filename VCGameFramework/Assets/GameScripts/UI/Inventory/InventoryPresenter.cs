@@ -4,6 +4,9 @@ using VContainer.Unity;
 
 namespace Game.UI.Inventory
 {
+    /// <summary>
+    /// 背包窗口的表现逻辑
+    /// </summary>
     public class InventoryPresenter : IStartable, IDisposable
     {
         private readonly IInventoryService _service;
@@ -15,11 +18,13 @@ namespace Game.UI.Inventory
             _view = view;
         }
 
+        /// <inheritdoc />
         public void Start()
         {
             UnityEngine.Debug.Log($"Inventory items: {_service.Items.Count}");
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
         }
