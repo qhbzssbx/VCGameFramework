@@ -1,0 +1,60 @@
+using VContainer;
+
+namespace Game.Core.FlowSystem.Examples
+{
+    /// <summary>
+    /// 游戏流程模块示例，展示如何在具体项目中注册自定义主流程和子流程
+    /// </summary>
+    public class GameFlowModule : IModuleWithOrder
+    {
+        /// <summary>
+        /// 模块加载优先级，应该在FlowSystemModule之后加载
+        /// </summary>
+        public int Order => -50;
+        
+        /// <summary>
+        /// 配置容器注册
+        /// </summary>
+        /// <param name="builder">容器构建器</param>
+        public void Configure(IContainerBuilder builder)
+        {
+            UnityEngine.Debug.Log("Configuring GameFlowModule...");
+            
+            // 注册主流程
+            RegisterMainFlows(builder);
+            
+            // 注册子流程
+            RegisterSubFlows(builder);
+            
+            UnityEngine.Debug.Log("GameFlowModule configuration completed");
+        }
+        
+        /// <summary>
+        /// 注册主流程
+        /// </summary>
+        private void RegisterMainFlows(IContainerBuilder builder)
+        {
+            // 注册所有主流程
+            FlowSystemModule.RegisterFlow<Game.Core.FlowSystem.Flows.LaunchFlow>(builder);
+            FlowSystemModule.RegisterFlow<Game.Core.FlowSystem.Flows.HotUpdateFlow>(builder);
+            FlowSystemModule.RegisterFlow<Game.Core.FlowSystem.Flows.LoginFlow>(builder);
+            FlowSystemModule.RegisterFlow<Game.Core.FlowSystem.Flows.GameMainFlow>(builder);
+            
+            UnityEngine.Debug.Log("Main flows registered successfully");
+        }
+        
+        /// <summary>
+        /// 注册子流程
+        /// </summary>
+        private void RegisterSubFlows(IContainerBuilder builder)
+        {
+            // 注册所有子流程
+            FlowSystemModule.RegisterSubFlow<Game.Core.FlowSystem.SubFlows.GamePlaySubFlow>(builder);
+            FlowSystemModule.RegisterSubFlow<Game.Core.FlowSystem.SubFlows.PauseMenuSubFlow>(builder);
+            FlowSystemModule.RegisterSubFlow<Game.Core.FlowSystem.SubFlows.SettingsSubFlow>(builder);
+            FlowSystemModule.RegisterSubFlow<Game.Core.FlowSystem.SubFlows.InventorySubFlow>(builder);
+            
+            UnityEngine.Debug.Log("Sub flows registered successfully");
+        }
+    }
+}
