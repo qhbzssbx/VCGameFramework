@@ -18,6 +18,8 @@ namespace Game.Infrastructure.Bootstrap
             // 使用 ModuleLoader 自动发现和注册所有模块
             // 包括 FlowSystemModule, GameFlowModule 等所有实现了 IModule 的模块
             ModuleLoader.RegisterAllModules(builder);
+
+            builder.RegisterEntryPoint<GameBootstrap>();
         }
     }
 }
