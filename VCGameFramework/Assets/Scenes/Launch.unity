@@ -644,14 +644,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1272233052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb039381625b8d04caee2431a388e93d, type: 3}
+  m_Script: {fileID: 11500000, guid: aa5f033fe2b1b6d4a83bb06b5f63061a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects:
-  - {fileID: 1399085371}
+  autoInjectGameObjects: []
 --- !u!1 &1399085371
 GameObject:
   m_ObjectHideFlags: 0

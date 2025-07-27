@@ -1,4 +1,4 @@
-using Game.Core.FlowSystem.Managers;
+using Game.Infrastructure.Managers;
 using MessagePipe;
 using UnityEngine;
 using VContainer;
@@ -31,8 +31,8 @@ namespace Game.Core.FlowSystem
             // 注册管理器组件
             RegisterManagers(builder);
             
-            // 注册事件系统
-            RegisterEventSystem(builder);
+            // 注册事件系统, MessagePipi与VContainer的合作会创建一个发布器和订阅器的工厂, 这个工厂会在使用时产生对应的发布器和订阅器不需要手动注册
+            // RegisterEventSystem(builder);
             
             // 注册流程系统初始化器
             RegisterInitializer(builder);
@@ -61,20 +61,20 @@ namespace Game.Core.FlowSystem
         /// <summary>
         /// 注册管理器组件
         /// </summary>
-        private void RegisterManagers(IContainerBuilder builder)
+        private void  RegisterManagers(IContainerBuilder builder)
         {
             // 注册时间管理器
             builder.Register<ITimeManager, TimeManager>(Lifetime.Singleton);
             
             // 注册音频管理器（需要作为MonoBehaviour组件）
-            builder.RegisterComponentInNewPrefab<AudioManager, IAudioManager>(
-                CreateAudioManagerPrefab(), 
+            builder.RegisterComponentInNewPrefab<IAudioManager, AudioManager>(
+                resolver => CreateAudioManagerPrefab().GetComponent<AudioManager>(), 
                 Lifetime.Singleton
             );
             
             // 注册输入管理器（需要作为MonoBehaviour组件）
-            builder.RegisterComponentInNewPrefab<InputManager, IInputManager>(
-                CreateInputManagerPrefab(), 
+            builder.RegisterComponentInNewPrefab<IInputManager, InputManager>(
+                resolver => CreateInputManagerPrefab().GetComponent<InputManager>(), 
                 Lifetime.Singleton
             );
             
@@ -86,20 +86,20 @@ namespace Game.Core.FlowSystem
         /// </summary>
         private void RegisterEventSystem(IContainerBuilder builder)
         {
-            // 注册MessagePipe的FlowEvent发布器和订阅器
-            builder.Register<IPublisher<FlowEvent>>(resolver =>
-            {
-                // 直接使用GlobalMessagePipe静态方法，无需通过容器解析
-                return GlobalMessagePipe.GetPublisher<FlowEvent>();
-            }, Lifetime.Singleton);
-            
-            builder.Register<ISubscriber<FlowEvent>>(resolver =>
-            {
-                // 直接使用GlobalMessagePipe静态方法，无需通过容器解析
-                return GlobalMessagePipe.GetSubscriber<FlowEvent>();
-            }, Lifetime.Singleton);
-            
-            Debug.Log("Event system registered");
+            // // 注册MessagePipe的FlowEvent发布器和订阅器
+            // builder.Register<IPublisher<FlowEvent>>(resolver =>
+            // {
+            //     // 直接使用GlobalMessagePipe静态方法，无需通过容器解析
+            //     return GlobalMessagePipe.GetPublisher<FlowEvent>();
+            // }, Lifetime.Singleton);
+            //
+            // builder.Register<ISubscriber<FlowEvent>>(resolver =>
+            // {
+            //     // 直接使用GlobalMessagePipe静态方法，无需通过容器解析
+            //     return GlobalMessagePipe.GetSubscriber<FlowEvent>();
+            // }, Lifetime.Singleton);
+            //
+            // Debug.Log("Event system registered");
         }
         
         /// <summary>

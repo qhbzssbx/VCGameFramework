@@ -1,6 +1,7 @@
 using Game.Core;
 using Game.Modules.Global.Domain;
 using Game.Modules.Global.Infrastructure;
+using UnityEngine;
 using VContainer;
 
 namespace Game.Modules.Global.Application
@@ -30,6 +31,8 @@ namespace Game.Modules.Global.Application
             builder.Register<IInventoryService, InventoryService>(Lifetime.Singleton);
             // 全局事件总线
             builder.Register<IGlobalEventBus, GlobalEventBus>(Lifetime.Singleton);
+            
+            Debug.Log("Global Init Successful");
         }
     }
 }

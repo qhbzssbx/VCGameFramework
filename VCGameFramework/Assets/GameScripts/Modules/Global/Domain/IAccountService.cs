@@ -12,7 +12,8 @@ namespace Game.Modules.Global.Domain
         /// </summary>
         /// <param name="username">用户名</param>
         /// <param name="password">密码</param>
-        UniTask LoginAsync(string username, string password);
+        /// <returns>登录是否成功</returns>
+        UniTask<bool> LoginAsync(string username, string password);
 
         /// <summary>
         /// 登出账户

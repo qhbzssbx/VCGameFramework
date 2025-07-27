@@ -1,6 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
-using Game.Core.FlowSystem.Managers;
+using Game.Infrastructure.Managers;
 using MessagePipe;
 using UnityEngine;
 using VContainer.Unity;

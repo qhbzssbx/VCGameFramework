@@ -10,10 +10,23 @@ namespace Game.Modules.Global.Infrastructure
     public class NetworkService : INetworkService
     {
         /// <inheritdoc />
-        public async UniTask ConnectAsync()
+        public async UniTask<bool> ConnectAsync()
         {
-            Debug.Log("[Network] Connect");
-            await UniTask.Delay(500);
+            try
+            {
+                Debug.Log("[Network] Connecting...");
+                await UniTask.Delay(500); // 模拟连接时间
+                
+                // 这里应该实现真正的网络连接逻辑
+                // 现在先模拟连接成功
+                Debug.Log("[Network] Connected successfully");
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"[Network] Connect failed: {ex.Message}");
+                return false;
+            }
         }
 
         /// <inheritdoc />

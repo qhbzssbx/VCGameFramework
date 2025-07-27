@@ -2,6 +2,7 @@ using Game.Core;
 using VContainer;
 using Game.Modules.Log.Domain;
 using Game.Modules.Log.Infrastructure;
+using UnityEngine;
 
 namespace Game.Modules.Log.Application
 {
@@ -15,6 +16,8 @@ namespace Game.Modules.Log.Application
             builder.Register<ILogService, FileLogService>(Lifetime.Singleton).WithParameter("path", logPath);
             builder.Register<LogAppService>(Lifetime.Singleton);
             builder.Register<ILogProvider, LogProvider>(Lifetime.Singleton);
+            
+            Debug.Log("Global Init Successful");
         }
     }
 }

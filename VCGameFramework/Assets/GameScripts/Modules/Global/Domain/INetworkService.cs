@@ -10,7 +10,8 @@ namespace Game.Modules.Global.Domain
         /// <summary>
         /// 建立连接
         /// </summary>
-        UniTask ConnectAsync();
+        /// <returns>连接是否成功</returns>
+        UniTask<bool> ConnectAsync();
 
         /// <summary>
         /// 发送消息

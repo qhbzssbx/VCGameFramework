@@ -7,8 +7,8 @@ using VContainer;
 public class LaunchAnim : MonoBehaviour
 {
 
-    [Inject]
-    IPublisher<int> publisher;
+    // [Inject]
+    // IPublisher<int> publisher;
 
     public TMP_Text tMP;
 
@@ -17,7 +17,7 @@ public class LaunchAnim : MonoBehaviour
     {
         Debug.Log(">>>>>>>>>>>>>>");
         tMP.DOText("GameStart", 0.2f).SetRelative().SetEase(Ease.Linear).SetAutoKill(false).OnComplete(() => {
-            publisher.Publish(1002);
+            // publisher.Publish(1002);
         });
     }
     // Update is called once per frame

@@ -20,10 +20,39 @@ namespace Game.Modules.Global.Infrastructure
         }
 
         /// <inheritdoc />
-        public async UniTask LoginAsync(string username, string password)
+        public async UniTask<bool> LoginAsync(string username, string password)
         {
-            await _network.ConnectAsync();
-            Debug.Log($"[Account] Login as {username}");
+            try
+            {
+                // 首先尝试连接网络
+                Debug.Log($"[Account] Attempting login for {username}");
+                var connected = await _network.ConnectAsync();
+                
+                if (!connected)
+                {
+                    Debug.LogError("[Account] Network connection failed, cannot login");
+                    return false;
+                }
+                
+                // 模拟登录验证逻辑
+                await UniTask.Delay(1000); // 模拟验证时间
+                
+                // 这里应该实现真正的登录验证逻辑
+                // 现在先简单验证用户名和密码不为空
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                {
+                    Debug.LogWarning("[Account] Username or password is empty");
+                    return false;
+                }
+                
+                Debug.Log($"[Account] Login successful for {username}");
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"[Account] Login failed: {ex.Message}");
+                return false;
+            }
         }
 
         /// <inheritdoc />
