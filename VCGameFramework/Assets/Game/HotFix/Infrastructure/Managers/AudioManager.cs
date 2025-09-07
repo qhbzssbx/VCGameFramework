@@ -623,7 +623,8 @@ namespace Game.Infrastructure.Managers
         /// </summary>
         private IEnumerator CleanupTempSFX(AudioSource source, GameObject tempObject, float delay)
         {
-            yield return new WaitForSeconds(delay + 0.1f); // 多等待0.1秒确保播放完成
+            // 使用实时等待避免在游戏暂停或时间缩放改变时遗留临时对象
+            yield return new WaitForSecondsRealtime(delay + 0.1f); // 多等待0.1秒确保播放完成
             
             if (source != null)
             {
