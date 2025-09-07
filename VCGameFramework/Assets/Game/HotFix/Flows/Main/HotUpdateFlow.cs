@@ -1,11 +1,9 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Game.Infrastructure.Managers;
 using Game.Core.FlowSystem;
 using Game.Modules.Global.Domain;
 using Game.Modules.Log.Domain;
-using Game.Infrastructure.Resource.Core;
 using UnityEngine;
-using Game.UI.Core;
 using Game.UI;
 using Game.Core.UI;
 
@@ -30,7 +28,7 @@ namespace Game.Flows.Main
     public class HotUpdateFlow : BaseMainFlow
     {
         private readonly ILogService _logService;
-        private readonly IResourceService _resourceService;
+
         private readonly INetworkService _networkService;
         private readonly IInputManager _inputManager;
         private readonly IFlowManager _flowManager;
@@ -55,14 +53,14 @@ namespace Game.Flows.Main
         /// </summary>
         public HotUpdateFlow(
             ILogService logService,
-            IResourceService resourceService,
+
             INetworkService networkService,
             IInputManager inputManager,
             IFlowManager flowManager,
             IUIManager uISystem)
         {
             _logService = logService;
-            _resourceService = resourceService;
+
             _networkService = networkService;
             _inputManager = inputManager;
             _flowManager = flowManager;
@@ -516,3 +514,4 @@ namespace Game.Flows.Main
         #endregion
     }
 }
+

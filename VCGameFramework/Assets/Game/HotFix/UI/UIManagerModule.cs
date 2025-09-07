@@ -16,7 +16,7 @@ namespace Game.UI
         public void Configure(IContainerBuilder builder)
         {
             // 注册UI资源加载器
-            builder.Register<IUIResourceLoader, YooAssetUIResourceLoader>(Lifetime.Singleton);
+            builder.Register<IUIResourceLoader, ScopedUIResourceLoader>(Lifetime.Singleton);
 
             // 注册UI系统组件
             var c = builder.RegisterComponentOnNewGameObject<UISystem>(Lifetime.Singleton, "UIManager");

@@ -2,9 +2,7 @@
 using Game.Infrastructure.Managers;
 using Game.Core.FlowSystem;
 using Game.Modules.Log.Domain;
-using Game.Infrastructure.Resource.Core;
 using UnityEngine;
-using Game.UI.Core;
 using Game.UI;
 using Game.Core.UI;
 
@@ -19,7 +17,7 @@ namespace Game.Flows.Main
         private readonly IAudioManager _audioManager;
         private readonly IInputManager _inputManager;
         private readonly ILogService _logService;
-        private readonly IResourceService _resourceService;
+
         private readonly IFlowManager _flowManager;
 
         private readonly IUIManager _uiManager;
@@ -39,7 +37,7 @@ namespace Game.Flows.Main
             IAudioManager audioManager,
             IInputManager inputManager,
             ILogService logService,
-            IResourceService resourceService,
+
             IFlowManager flowManager,
             IUIManager uISystem)
         {
@@ -47,7 +45,7 @@ namespace Game.Flows.Main
             _audioManager = audioManager;
             _inputManager = inputManager;
             _logService = logService;
-            _resourceService = resourceService;
+
             _flowManager = flowManager;
             _uiManager = uISystem;
         }
@@ -317,3 +315,4 @@ namespace Game.Flows.Main
         }
     }
 }
+

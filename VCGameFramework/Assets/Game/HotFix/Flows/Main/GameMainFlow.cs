@@ -3,7 +3,6 @@ using Game.Infrastructure.Managers;
 using Game.Flows.Sub;
 using Game.Modules.Global.Domain;
 using Game.Modules.Log.Domain;
-using Game.Infrastructure.Resource.Core;
 using Game.Core.FlowSystem;
 using UnityEngine;
 
@@ -29,7 +28,7 @@ namespace Game.Flows.Main
     public class GameMainFlow : BaseMainFlow
     {
         private readonly ILogService _logService;
-        private readonly IResourceService _resourceService;
+
         private readonly INetworkService _networkService;
         private readonly IAccountService _accountService;
         private readonly IInputManager _inputManager;
@@ -53,7 +52,7 @@ namespace Game.Flows.Main
         /// </summary>
         public GameMainFlow(
             ILogService logService,
-            IResourceService resourceService,
+
             INetworkService networkService,
             IAccountService accountService,
             IInputManager inputManager,
@@ -63,7 +62,7 @@ namespace Game.Flows.Main
             IFlowManager flowManager)
         {
             _logService = logService;
-            _resourceService = resourceService;
+
             _networkService = networkService;
             _accountService = accountService;
             _inputManager = inputManager;
