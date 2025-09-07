@@ -16,9 +16,10 @@ public class LaunchAnim : MonoBehaviour
     void Start()
     {
         Debug.Log(">>>>>>>>>>>>>>");
-        tMP.DOText("GameStart", 0.2f).SetRelative().SetEase(Ease.Linear).SetAutoKill(false).OnComplete(() => {
-            // publisher.Publish(1002);
-        });
+        // tMP.DOText("GameStart", 0.2f).SetRelative().SetEase(Ease.Linear).SetAutoKill(false).OnComplete(() => {
+        //     // publisher.Publish(1002);
+        // });
+        tMP.text = "GameStart";
     }
     // Update is called once per frame
     void Update()

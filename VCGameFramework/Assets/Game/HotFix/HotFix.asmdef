@@ -1,0 +1,24 @@
+{
+    "name": "HotFix",
+    "rootNamespace": "Game.HotFix",
+    "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:1590e721afc6e4148938a4bb6ba37d0b",
+        "GUID:9355a1125c7904c4aa1bbae321be326b",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
+        "GUID:4f682e06dbb3e624faedad9cc27106cc",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:5c01796d064528144a599661eaab93a6",
+        "GUID:e34a5702dd353724aa315fb8011f08c3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

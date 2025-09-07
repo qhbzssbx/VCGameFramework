@@ -1,0 +1,42 @@
+# Repository Guidelines
+
+
+总是用中文回�?审查提问/想法/思路/代码,进行客观分析,从性能/扩展�?是否利于维护/是否能让后来者轻松理�?健壮性等方面给出多维度的评价.从提问的相关领域考虑提问在当前情景下的合理�?不需要偏向用�?不需要强调用户提�?想法/思路/代码的合理�?而是客观分析,依据当前情景给出多维度的见解/评价/指导.在回答前对回答进行反�?
+Guide users through a complete spec-driven development process that transforms a rough feature idea into a fully implemented feature. The workflow takes a feature concept as input, processes it through four structured stages (requirements clarification, design document creation, implementation planning, and task execution), and outputs a complete implemented feature with supporting documentation files (requirements.md, design.md, tasks.md) in the current working directory along with all necessary code files and tests.
+
+## Project Structure & Module Organization
+- Root: Unity project with `Assets/`, `Packages/`, `ProjectSettings/`, `UserSettings/`.
+- Code: under `Assets/Game/` and `Assets/AOT/`; third-party in `Assets/Plugins/` and package cache.
+- Scenes & Resources: `Assets/Scenes/`, `Assets/Resources/`, `Assets/Settings/`, `Assets/StreamingAssets/`.
+- Content Pipelines: `AssetBundles/`, `Bundles/`, and `yoo/` (YooAsset data). Treat as build/output.
+- Generated folders: `Library/`, `Temp/`, `Logs/`, `obj/` �?do not commit.
+
+## Build, Test, and Development Commands
+- Open in Editor: use the Unity version in `ProjectSettings/ProjectVersion.txt`.
+- CLI Test (EditMode): `"<UnityPath>\\Unity.exe" -batchmode -projectPath "<repo>" -runTests -testPlatform EditMode -logFile Logs/tests-edit.log -testResults Logs/editmode-results.xml -quit`
+- CLI Test (PlayMode): same as above with `-testPlatform PlayMode`.
+- Batch build: if you have a static method (e.g., `BuildScripts.CI.Build`), run with `-executeMethod BuildScripts.CI.Build -buildTarget StandaloneWindows64`. Keep logs under `Logs/`.
+
+## Coding Style & Naming Conventions
+- Language: C# (Unity). Follow `.editorconfig` in repo.
+- Indentation: 4 spaces; UTF-8; one class per file when reasonable.
+- Naming: `PascalCase` for public types/methods/properties; `camelCase` for locals/parameters; prefer `_camelCase` for private fields. Namespaces start with `VCGameFramework.*`.
+- Assets: keep runtime code in `Assets/AOT/`, editor-only in `Assets/Game/Editor/`.
+
+## Testing Guidelines
+- Framework: Unity Test Framework (NUnit).
+- Structure: `Assets/Tests/EditMode/` and `Assets/Tests/PlayMode/`.
+- Naming: test files `*Tests.cs`; test methods `[Test]` or `[UnityTest]` with clear Arrange/Act/Assert.
+- Run: via Test Runner window or the CLI examples above. Include failing case reproduction in PRs.
+
+## Commit & Pull Request Guidelines
+- Commits: use Conventional Commits (e.g., `feat:`, `fix:`, `docs:`, `refactor:`). Keep scope small; one logical change per commit.
+- Branches: `feature/<short-name>`, `fix/<issue-id>`, `chore/<task>`.
+- PRs: include summary, linked issues, reproduction steps, and editor version. Add screenshots/GIFs for scene/UI changes. Ensure no diffs in `Library/` or `Temp/`.
+- Lockfiles: if `Packages/manifest.json` changes, commit the corresponding `Packages/packages-lock.json`.
+
+## Security & Configuration Tips
+- Unity version: align with `ProjectSettings/ProjectVersion.txt` to avoid asset reserialization churn.
+- Large assets: respect `.gitattributes`; use Git LFS for binaries if applicable.
+- Secrets: do not embed keys in assets or scripts; use `StreamingAssets` or environment-specific config files not committed to VCS.
+
