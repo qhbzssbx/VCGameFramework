@@ -35,7 +35,7 @@ namespace Game.UI.Core
         /// </summary>
         /// <param name="assetKeys">资源键名列表</param>
         /// <returns>加载任务</returns>
-        UniTask PreloadUIAssetsAsync(params string[] assetKeys);
+        // UniTask PreloadUIAssetsAsync(params string[] assetKeys);
         
         /// <summary>
         /// 释放UI资源

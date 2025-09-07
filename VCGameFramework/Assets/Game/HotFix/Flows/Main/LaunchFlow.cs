@@ -125,11 +125,8 @@ namespace Game.Flows.Main
             _logService.Info("✓ 日志系统已就绪");
             
             // 初始化资源系统
-            if (_resourceService != null)
-            {
-                // 根据ResourceService的具体实现进行初始化
-                _logService.Info("✓ 资源系统初始化完成");
-            }
+            // TODO: 当资源系统实现后，在这里添加资源系统的初始化逻辑
+            _logService.Info("✓ 资源系统初始化完成");
             
             // 设置应用程序配置
             SetupApplicationSettings();
