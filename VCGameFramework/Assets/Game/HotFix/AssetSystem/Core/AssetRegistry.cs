@@ -83,8 +83,13 @@ namespace Game.HotFix.AssetSystem.Core
                 }
             }
 
-            // 同步 YooAsset 内部缓存，释放未使用资源
-            await YooAssets.UnloadUnusedAssetsAsync().ToUniTask(cancellationToken: ct);
+
+            // 同步 YooAsset 包缓存，释放未使用资源
+            var package = YooAssets.GetPackage("DefaultPackage");
+            var operation = package.UnloadUnusedAssetsAsync();
+            operation.WaitForAsyncComplete(); // 支持同步操作
+            await operation.ToUniTask(cancellationToken: ct);
+
         }
 
         private async UniTask<Entry> GetOrLoadEntryAsync<T>(string address, CancellationToken ct) where T : UnityEngine.Object
