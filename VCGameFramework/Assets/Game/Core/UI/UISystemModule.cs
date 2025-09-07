@@ -18,7 +18,7 @@ namespace Game.Core.UI
             builder.Register<IUIManager>(resolver =>
             {
                 var uiSystem = Object.FindObjectOfType<UISystem>();
-                if (uiSystem == null)
+                if (!uiSystem)
                 {
                     var go = new GameObject("UISystem");
                     uiSystem = go.AddComponent<UISystem>();

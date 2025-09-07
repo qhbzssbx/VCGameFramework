@@ -3,25 +3,15 @@ using DG.Tweening;
 using Game.UI.Core;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Core.UI;
 using TMPro;
 using UnityEngine;
 
 namespace Game.UI
 {
-    public class LaunchPanel : UIPanel
+    public class LaunchPanel : UIPanelBase<EmptyUIParams>
     {
         public TMP_Text tMP_Text;
-
-        protected override void Initialize()
-        {
-            base.Initialize();
-        }
-
-        protected override UniTask OnShow(params object[] args)
-        {
-
-            return base.OnShow(args);
-        }
 
         public UniTask PlayAnim()
         {
@@ -34,6 +24,21 @@ namespace Game.UI
                 .OnComplete(() => tcs.TrySetResult());
             
             return tcs.Task;
+        }
+
+        protected override UniTask OnShowAsync(in EmptyUIParams args)
+        {
+            return UniTask.CompletedTask;
+        }
+
+        protected override UniTask OnOpenAsync(in EmptyUIParams args)
+        {
+            return UniTask.CompletedTask;
+        }
+
+        protected override UniTask OnHideAsync()
+        {
+            return UniTask.CompletedTask;
         }
     }
 }

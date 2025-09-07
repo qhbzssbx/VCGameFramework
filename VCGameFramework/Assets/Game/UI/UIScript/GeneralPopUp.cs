@@ -1,13 +1,28 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.UI.Core;
 using System;
+using Game.Core.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class GeneralPopUp : UIPanel
+    public struct GeneralPopUpParams : IUIParams
+    {
+        public string content;
+        public Action onClickOk;
+        public Action onClickCancel;
+
+        public GeneralPopUpParams(string content, Action onClickOk = null, Action onClickCancel = null)
+        {
+            this.content = content;
+            this.onClickOk = onClickOk;
+            this.onClickCancel = onClickCancel;
+        }
+    }
+    
+    public class GeneralPopUp : UIPanelBase<GeneralPopUpParams>
     {
         [SerializeField] private TMP_Text content;
         [SerializeField] private Button btnOk;
@@ -16,21 +31,6 @@ namespace Game.UI
         private Action OnClickBtnOkCallBack;
         private Action OnClickBtnCancelCallback;
 
-        protected override void Initialize()
-        {
-            base.Initialize();
-
-            btnOk.onClick.AddListener(OnClickBtnOK);
-            btnCancel.onClick.AddListener(OnClickBtnCancel);
-        }
-        protected override UniTask OnBeforeShow(params object[] args)
-        {
-            content.text = args[0] as string;
-            //OnClickBtnOkCallBack = args[1] as Action;
-            //OnClickBtnCancelCallback = args[2] as Action;
-
-            return base.OnBeforeShow(args);
-        }
 
         private void OnClickBtnOK()
         {
@@ -43,14 +43,6 @@ namespace Game.UI
             OnClickBtnCancelCallback?.Invoke();
             handle.Close();
         }
-
-        protected override UniTask OnBeforeHide()
-        {
-            OnClickBtnOkCallBack = null;
-            OnClickBtnCancelCallback = null;
-            return base.OnBeforeHide();
-        }
-
 
         public void SetContent(string content)
         {
@@ -67,6 +59,35 @@ namespace Game.UI
             OnClickBtnCancelCallback = action;
         }
 
+        protected override UniTask OnShowAsync(in GeneralPopUpParams args)
+        {
+            
+            content.text = args.content;
+            OnClickBtnOkCallBack = args.onClickCancel;
+            OnClickBtnOkCallBack = args.onClickOk;
+
+            btnOk.onClick.AddListener(OnClickBtnOK);
+            btnCancel.onClick.AddListener(OnClickBtnCancel);
+            
+            return UniTask.CompletedTask;
+        }
+
+        protected override UniTask OnOpenAsync(in GeneralPopUpParams args)
+        {
+            content.text = args.content;
+            OnClickBtnOkCallBack = args.onClickCancel;
+            OnClickBtnOkCallBack = args.onClickOk;
+            
+            return UniTask.CompletedTask;
+        }
+
+        protected override UniTask OnHideAsync()
+        {
+            OnClickBtnOkCallBack = null;
+            OnClickBtnCancelCallback = null;
+            
+            return UniTask.CompletedTask;
+        }
     }
 }
 

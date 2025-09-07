@@ -12,7 +12,7 @@ namespace Game.Core.UI
     {
         private readonly IUIPanel _panel;
         private readonly IUIManager _uiManager;
-        private readonly Type _panelType;
+        private readonly string _panelName;
         private bool _canClose = true;
         
         /// <summary>
@@ -20,12 +20,12 @@ namespace Game.Core.UI
         /// </summary>
         /// <param name="panel">关联的UI面板</param>
         /// <param name="uiManager">UI管理器</param>
-        /// <param name="panelType">面板类型</param>
-        public DefaultUIHandle(IUIPanel panel, IUIManager uiManager, Type panelType)
+        /// <param name="panelName">面板名称</param>
+        public DefaultUIHandle(IUIPanel panel, IUIManager uiManager, string panelName)
         {
             _panel = panel ?? throw new ArgumentNullException(nameof(panel));
             _uiManager = uiManager ?? throw new ArgumentNullException(nameof(uiManager));
-            _panelType = panelType ?? throw new ArgumentNullException(nameof(panelType));
+            _panelName = panelName ?? throw new ArgumentNullException(nameof(panelName));
         }
         
         /// <summary>
@@ -37,7 +37,7 @@ namespace Game.Core.UI
             set
             {
                 _canClose = value;
-                Debug.Log($"[DefaultUIHandle] {_panelType.Name} CanClose设置为: {value}");
+                Debug.Log($"[DefaultUIHandle] {_panelName} CanClose设置为: {value}");
             }
         }
         
@@ -53,7 +53,7 @@ namespace Game.Core.UI
         {
             if (!CanClose)
             {
-                Debug.LogWarning($"[DefaultUIHandle] {_panelType.Name} 当前不允许关闭");
+                Debug.LogWarning($"[DefaultUIHandle] {_panelName} 当前不允许关闭");
                 return;
             }
             
@@ -68,7 +68,7 @@ namespace Game.Core.UI
         {
             if (!CanClose)
             {
-                Debug.LogWarning($"[DefaultUIHandle] {_panelType.Name} 当前不允许关闭");
+                Debug.LogWarning($"[DefaultUIHandle] {_panelName} 当前不允许关闭");
                 return;
             }
             
@@ -83,7 +83,7 @@ namespace Game.Core.UI
             }
             catch (Exception ex)
             {
-                Debug.LogError($"[DefaultUIHandle] 关闭UI时发生错误 {_panelType.Name}: {ex}");
+                Debug.LogError($"[DefaultUIHandle] 关闭UI时发生错误 {_panelName}: {ex}");
             }
         }
         

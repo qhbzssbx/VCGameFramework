@@ -120,7 +120,7 @@ namespace Game.Flows.Main
             // 这里应该显示热更新的UI界面
             // 包括进度条、状态文本、取消按钮等
 
-            hotFixPanel = await _uiManager.ShowAsync(typeof(HotFixPanel)) as HotFixPanel;
+            hotFixPanel = await _uiManager.ShowAsync<HotFixPanel>();
         }
         
         /// <summary>
@@ -299,12 +299,13 @@ namespace Game.Flows.Main
             var tcs = new System.Threading.Tasks.TaskCompletionSource<bool>();
             
             // 显示确认弹窗
-            generalPopUp = await _uiManager.ShowAsync(typeof(GeneralPopUp),
-                _updateMessage + "\\n\\nStart Download？") as GeneralPopUp;
+            generalPopUp = await _uiManager.ShowAsync<GeneralPopUp, GeneralPopUpParams>(
+                new GeneralPopUpParams(_updateMessage + @"\n\nStart Download？",
+                    () => tcs.SetResult(true),
+                    () => tcs.SetResult(false))
+                );
 
-            generalPopUp.SetOkCallBack(() => tcs.SetResult(true));
-            generalPopUp.SetCancelCallBack(() => tcs.SetResult(false));
-
+            
             // 等待用户选择
             _userConfirmed = await tcs.Task;
             

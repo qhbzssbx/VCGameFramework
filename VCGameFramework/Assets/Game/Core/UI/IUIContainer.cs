@@ -12,22 +12,22 @@ namespace Game.Core.UI
         /// <summary>
         /// 注册UI面板
         /// </summary>
-        /// <param name="panelType">面板类型</param>
+        /// <param name="panelName">面板类型</param>
         /// <param name="panel">面板实例</param>
-        void RegisterPanel(Type panelType, IUIPanel panel);
+        void RegisterPanel(string panelName, IUIPanel panel);
         
         /// <summary>
         /// 注销UI面板
         /// </summary>
-        /// <param name="panelType">面板类型</param>
-        void UnregisterPanel(Type panelType);
+        /// <param name="panelName">面板类型</param>
+        void UnregisterPanel(string panelName);
         
         /// <summary>
         /// 获取指定类型的UI面板
         /// </summary>
-        /// <param name="panelType">面板类型</param>
+        /// <param name="panelName">面板类型</param>
         /// <returns>面板实例，如果不存在返回null</returns>
-        IUIPanel GetPanel(Type panelType);
+        IUIPanel GetPanel(string panelName);
         
         /// <summary>
         /// 获取指定类型的UI面板（泛型版本）
@@ -45,9 +45,9 @@ namespace Game.Core.UI
         /// <summary>
         /// 检查指定类型的面板是否已注册
         /// </summary>
-        /// <param name="panelType">面板类型</param>
+        /// <param name="panelName">面板类型</param>
         /// <returns>是否已注册</returns>
-        bool HasPanel(Type panelType);
+        bool HasPanel(string panelName);
         
         /// <summary>
         /// 清空所有注册的面板

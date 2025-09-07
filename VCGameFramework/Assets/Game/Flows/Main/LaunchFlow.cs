@@ -220,7 +220,7 @@ namespace Game.Flows.Main
         {
             // 这里可以预加载一些基础的UI预制体
             // 比如加载界面、提示框等
-            launchPanel = await _uiManager.ShowAsync(typeof(LaunchPanel), null) as LaunchPanel;
+            launchPanel = await _uiManager.ShowAsync<LaunchPanel>();
             
             _logService.Info("✓ 基础UI资源加载完成");
             await UniTask.Delay(200); // 模拟加载时间
