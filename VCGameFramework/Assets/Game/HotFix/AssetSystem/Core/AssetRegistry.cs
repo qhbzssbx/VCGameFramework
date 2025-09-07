@@ -12,12 +12,14 @@ namespace Game.HotFix.AssetSystem.Core
     /// IAssetRegistry 默认实现（Singleton）：
     /// - 使用 address -> Entry 的字典管理 YooAsset 句柄与 RefCount。
     /// - Pin/Lease 统一走 Entry，Lease.Dispose/Pin 归还会减少 RefCount 并在为 0 时释放句柄。
-    /// - 预留 TTL/统计/调试 UI 钩子（此版本不实现，留给项目侧按需扩展）。
+    /// - 内置 TTL 淘汰：未被访问且引用计数为 0 的条目在清理时会释放。
+    /// - 预留统计/调试 UI 钩子（此版本不实现，留给项目侧按需扩展）。
     /// </summary>
     public sealed class AssetRegistry : IAssetRegistry, IDisposable
     {
         private readonly Dictionary<string, Entry> _entries = new();
         private readonly object _gate = new();
+        private readonly TimeSpan _timeToLive = TimeSpan.FromMinutes(10);
         private bool _disposed;
 
         private sealed class Entry
@@ -52,11 +54,40 @@ namespace Game.HotFix.AssetSystem.Core
             handle.Release();
         }
 
-        public UniTask CleanupAsync(CancellationToken ct = default)
+        public async UniTask CleanupAsync(CancellationToken ct = default)
         {
-            // 预留：可在此加入 TTL 淘汰、TopN 统计、调用 YooAssets.UnloadUnusedAssetsAsync 等
-            // 为减少入侵度，此处先空实现，交由上层在合适时机调用 YooAssets.UnloadUnusedAssetsAsync。
-            return UniTask.CompletedTask;
+            ThrowIfDisposed();
+            List<string> toRemove = null;
+            lock (_gate)
+            {
+                var now = DateTime.UtcNow;
+                foreach (var kv in _entries)
+                {
+                    var entry = kv.Value;
+                    if (entry.RefCount <= 0 && now - entry.LastAccess > _timeToLive)
+                    {
+                        (toRemove ??= new()).Add(kv.Key);
+                    }
+                }
+
+                if (toRemove != null)
+                {
+                    foreach (var key in toRemove)
+                    {
+                        if (_entries.TryGetValue(key, out var entry))
+                        {
+                            entry.Handle?.Release();
+                            _entries.Remove(key);
+                        }
+                    }
+                }
+            }
+
+            // 同步 YooAsset 包缓存，释放未使用资源
+            var package = YooAssets.GetPackage("DefaultPackage");
+            var operation = package.UnloadUnusedAssetsAsync();
+            operation.WaitForAsyncComplete(); // 支持同步操作
+            await operation.ToUniTask(cancellationToken: ct);
         }
 
         private async UniTask<Entry> GetOrLoadEntryAsync<T>(string address, CancellationToken ct) where T : UnityEngine.Object
