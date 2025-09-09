@@ -1,10 +1,10 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Game.AOT.AssetSystem.Core;
 using UnityEngine;
 using VContainer;
-using Game.AOT.AssetSystem.Core;
 
-namespace Game.Examples.AssetSystem
+namespace Game.HotFix.AssetSystem.Examples
 {
     /// <summary>
     /// UI窗口使用示例：展示如何在UI窗口中使用AssetScope进行资源管理

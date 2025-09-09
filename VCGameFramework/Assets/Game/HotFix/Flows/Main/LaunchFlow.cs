@@ -1,10 +1,13 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Infrastructure.Managers;
-using Game.Core.FlowSystem;
 using Game.Modules.Log.Domain;
 using UnityEngine;
 using Game.UI;
 using Game.Core.UI;
+using Game.HotFix.FlowSystem;
+using Game.HotFix.FlowSystem.BaseClass;
+using Game.HotFix.FlowSystem.Interface;
+using Game.HotFix.FlowSystem.Manager;
 
 namespace Game.Flows.Main
 {

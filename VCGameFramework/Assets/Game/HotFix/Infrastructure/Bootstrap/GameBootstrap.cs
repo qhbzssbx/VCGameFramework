@@ -2,12 +2,14 @@
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using Game.Core.FlowSystem;
 using Game.Flows.Main;
 using Game.Modules.Log.Domain;
 using Cysharp.Threading.Tasks;
+using Game.HotFix.FlowSystem;
+using Game.HotFix.FlowSystem.Interface;
+using Game.HotFix.FlowSystem.Manager;
 
-namespace Game.Infrastructure.Bootstrap
+namespace Game.HotFix.Infrastructure.Bootstrap
 {
     /// <summary>
     /// 游戏启动管理器 - 负责初始化和启动整个游戏流程系统

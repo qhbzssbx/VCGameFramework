@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
 using Game.Infrastructure.Managers;
-using Game.Core.FlowSystem;
+using Game.HotFix.FlowSystem;
+using Game.HotFix.FlowSystem.BaseClass;
+using Game.HotFix.FlowSystem.Interface;
 using Game.Modules.Log.Domain;
 using UnityEngine;
 

@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Game.Infrastructure.Managers;
-using Game.Core.FlowSystem;
+using Game.HotFix.FlowSystem;
+using Game.HotFix.FlowSystem.BaseClass;
 using Game.Modules.Log.Domain;
 
 namespace Game.Flows.Sub

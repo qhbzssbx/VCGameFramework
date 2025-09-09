@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Game.AOT.AssetSystem.Core;
 using UnityEngine;
-using Game.HotFix.AssetSystem.Core;
 
 namespace Game.UI.Core
 {
@@ -22,7 +22,7 @@ namespace Game.UI.Core
 
         private string packageName = "DefaultPackage";
 
-        public ScopedUIResourceLoader(Game.HotFix.AssetSystem.Core.IAssetRegistry registry)
+        public ScopedUIResourceLoader(IAssetRegistry registry)
         {
             _registry = registry ?? throw new ArgumentNullException(nameof(registry));
         }

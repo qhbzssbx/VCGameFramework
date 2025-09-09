@@ -3,7 +3,10 @@ using Game.Infrastructure.Managers;
 using Game.Flows.Sub;
 using Game.Modules.Global.Domain;
 using Game.Modules.Log.Domain;
-using Game.Core.FlowSystem;
+using Game.HotFix.FlowSystem;
+using Game.HotFix.FlowSystem.BaseClass;
+using Game.HotFix.FlowSystem.Interface;
+using Game.HotFix.FlowSystem.Manager;
 using UnityEngine;
 
 namespace Game.Flows.Main

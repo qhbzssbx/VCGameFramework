@@ -1,10 +1,13 @@
 // using System;
+// using Game.Core;
+// using Game.HotFix.AssetSystem.Core;
+// using Game.HotFix.AssetSystem.Module;
+// using Game.HotFix.AssetSystem.Pool;
 // using UnityEngine;
 // using VContainer;
 // using VContainer.Unity;
-// using Game.AOT.AssetSystem.Core;
 //
-// namespace Game.Examples.AssetSystem
+// namespace Game.HotFix.AssetSystem.Examples
 // {
 //     /// <summary>
 //     /// 项目配置示例：展示如何在项目中完整配置资源管理系统
@@ -136,10 +139,10 @@
 //         private void RegisterExtensions(IContainerBuilder builder)
 //         {
 //             // 注册UI资源加载器 - 使用新的资源管理系统
-//             builder.Register<global::Game.UI.Core.IUIResourceLoader>(provider =>
+//             builder.Register<Game.UI.Core.IUIResourceLoader>(provider =>
 //             {
 //                 var registry = provider.Resolve<IAssetRegistry>();
-//                 return new global::Game.UI.Core.ScopedUIResourceLoader(registry);
+//                 return new Game.UI.Core.ScopedUIResourceLoader(registry);
 //             }, Lifetime.Scoped);
 //             
 //             // 注册资源监控服务

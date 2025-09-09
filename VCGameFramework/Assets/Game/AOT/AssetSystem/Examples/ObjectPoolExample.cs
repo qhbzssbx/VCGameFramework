@@ -1,9 +1,10 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Game.AOT.AssetSystem.Pool;
 using UnityEngine;
 using VContainer;
 
-namespace Game.Examples.AssetSystem
+namespace Game.HotFix.AssetSystem.Examples
 {
     /// <summary>
     /// 对象池使用示例：展示如何使用AssetPoolProvider管理高频使用的对象
